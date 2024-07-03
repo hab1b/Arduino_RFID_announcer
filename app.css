@@ -1,0 +1,43 @@
+/* app.css */
+body {
+    background-color: #2c3e50;
+    font-family: 'Arial', sans-serif;
+    color: #ecf0f1;
+    margin: 0;
+    padding: 0;
+}
+
+.titleBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    background-color: #34495e;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.titleBar h1 {
+    margin: 0;
+    font-size: 56px;
+}
+
+.dataEntriesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+}
+
+.dataEntry {
+    text-align: center;
+}
+
+.displayDataEntry {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.displayPhoto {
+    max-width: 300px;
+    border-radius: 8px;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Data Entry Gallery</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="app.css"/>
+</head>
+<body>
+    <div class="titleBar">
+        <h1>Data Entries</h1>
+    </div>
+    <div class="dataEntriesContainer">
+        <div class="dataEntry">
+            <p class="displayDataEntry"></p>
+            <img class="displayPhoto" src="" alt="Photo" />
+        </div>
+    </div>
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const displayDataEntry = document.querySelector('.displayDataEntry');
+            const displayPhoto = document.querySelector('.displayPhoto');
+            let currentEntryName = '';
+
+            function checkUID(uid, data) {
+                for (const entry of data) {
+                    if (entry.uid === uid) {
+                        return entry;
+                    }
+                }
+                return null;
+            }
+
+            ipcRenderer.on('serial-data', async (event, uid) => {
+                console.log('Received serial data:', uid); // Debugging statement
+                try {
+                    const data = await ipcRenderer.invoke('request-fetch-data');
+                    console.log('Data from JSON:', data); // Debugging statement
+                    const entry = checkUID(uid, data);
+                    if (entry) {
+                        displayDataEntry.textContent = `Name: ${entry.name}`;
+                        displayPhoto.src = entry.photo;
+                        currentEntryName = entry.name;
+                        const utterance = new SpeechSynthesisUtterance(currentEntryName);
+                        window.speechSynthesis.speak(utterance);
+                    } else {
+                        displayDataEntry.textContent = 'UID not recognized';
+                        displayPhoto.src = '';
+                        currentEntryName = '';
+                    }
+                    console.log('Display Data Entry:', displayDataEntry.textContent); // Debugging statement
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -15,17 +15,6 @@ Components
 	•	RFID Reader (Wiegand): Reads RFID keyfob information and passes the data to the Arduino.
 	•	GUI: A simple user interface that displays the information from the keyfob and ensures the announcement happens smoothly.
 
-Project Structure
-
-Disability-Accessibility-RFID-Project/
-├── WiegandTest.ino      # Arduino code for reading RFID keyfobs
-├── app.css              # Styles for the GUI
-├── data.json            # Sample data file for testing
-├── index.html           # Main HTML file for the web interface
-├── index.js             # JavaScript handling the front-end logic
-├── package-lock.json    # Package dependencies (auto-generated)
-├── package.json         # Node.js project configuration
-└── README.md            # Project documentation
 
 Installation
 
